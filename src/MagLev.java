@@ -5,7 +5,6 @@ import java.util.Objects;
  */
 public class MagLev extends Model {
 
-
     private Magnet M;
     private Sensor[] S; // Array of sensors
     private Vektor[] real; // Values that the sensors would give

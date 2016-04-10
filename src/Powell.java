@@ -8,7 +8,6 @@ public class Powell extends Optimisation { // Powell's Method ... under debuggin
         super(M);
         best = new Vektor(M.dim);
         N = new Vektor[M.dim*2];
-        double step = 1.0e-1;
         for (int i = 0; i < M.dim; i++) {
             N[2*i] = new Vektor(M.dim);
             N[2*i].x[i] = step;
@@ -19,7 +18,7 @@ public class Powell extends Optimisation { // Powell's Method ... under debuggin
 
     @Override
     public void update() {
-        double[] values = new double[best.x.length*2];
+        double[] values = new double[N.length];
         int mini = 0;
         double min = 1e308;
         for (int i = 0; i < values.length; i++) {
@@ -29,6 +28,6 @@ public class Powell extends Optimisation { // Powell's Method ... under debuggin
                 mini = i;
             }
         }
-        best.add(N[mini].clone());
+        best.add(N[mini]);
     }
 }

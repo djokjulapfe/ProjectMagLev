@@ -3,11 +3,11 @@ import javax.jws.WebParam;
 /**
  * Created by djokjula on 15.3.16..
  */
-public class Model {
+class Model {
 
     int dim; //Number of arguments for the optimisation
 
-    public Model(Object ... objects) {
+    Model(Object... objects) {
         dim = 2;
     }
 
@@ -16,6 +16,7 @@ public class Model {
     }
 
     public double getFitness(Vektor vec) { // Default fitness
-        return vec.mag();
+        double ret = -Math.exp(-vec.x[0]*vec.x[0]-(vec.x[1]-0.5)*(vec.x[1]-0.5));
+        return ret;
     }
 }

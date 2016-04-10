@@ -3,11 +3,10 @@ import java.util.Arrays;
 /**
  * Created by djokjula on 20.3.16..
  */
-public class GradientDescend extends Optimisation { // Gradient descent ... under debugging
-    double step;
+class GradientDescent extends Optimisation { // Gradient descent ... under debugging
     private Vektor[] N;
 
-    GradientDescend(Model M) {
+    GradientDescent(Model M) {
         super(M);
         N = new Vektor[M.dim];
         step = 1.0e-4;
@@ -23,20 +22,9 @@ public class GradientDescend extends Optimisation { // Gradient descent ... unde
         double[] values = new double[best.x.length];
         for (int i = 0; i < values.length; i++) {
             values[i] = M.getFitness(Vektor.add(best, N[i]));
-            newBest.add(Vektor.mult(N[i], -1e4*(fitness - values[i]) / step));
-        }
-        //setBest(Vektor.add(best, newBest));
-        Vektor vs = new Vektor(values.length);
-        for (int i = 0; i < values.length; i++) {
-            vs.x[i] = -fitness + values[i];
+            newBest.add(Vektor.mult(N[i], 1e-3*(values[i] - fitness)/step/step));
         }
         best.add(newBest);
         fitness = M.getFitness(best);
-        /*
-        System.out.println(fitness);
-        System.out.println(Arrays.toString(newBest.x));
-        System.out.println(Arrays.toString(vs.x));
-        System.out.println(Arrays.toString(best.x));
-        /**/
     }
 }

@@ -1,7 +1,6 @@
 import processing.core.PApplet;
-
-import javax.jws.WebParam;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by djokjula on 15.3.16..
@@ -11,7 +10,7 @@ public class Main {
         Magnet Mag = new Magnet();
         Mag.setP(0, 0, 0.5);
         Mag.setH(1, 0, 0);
-        Model M = new Model(Mag);
+        Model M = new MagLev(Mag);
         M.setModelMatrix(new int[][]{
                 {1, 0, 0, 0, 0, 0, 0, 1},
                 {0, 0, 0, 0, 0, 0, 0, 0},
@@ -21,17 +20,17 @@ public class Main {
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {1, 0, 0, 0, 0, 0, 0, 1}});
-        Optimisation O = new GradientDescend(M);
-        O.setBest(new Vektor(1, 1));
+        Optimisation O = new GradientDescent(M);
+        Random r = new Random();
+        O.setBest(new Vektor(0, 0, 0, 0, 0));
+        //System.out.println(Arrays.toString(O.best.x));
         for (int i = 0; i < 10; i++) {
             O.update();
-            System.out.println(Arrays.toString(O.best.x));
+            //System.out.println(Arrays.toString(O.best.x));
         }
         System.out.println(Arrays.toString(O.best.x));
-        //System.out.println(M.getFitness(O.best));
-
-        //Main display
-        PApplet.runSketch(new String[]{"A"}, new Drawer());
+        System.out.println(O.fitness);
+        System.out.println(Vektor.sub(new Vektor(0, 0, 0.5), O.best).mag());
     }
 
     public static class Drawer extends PApplet {
